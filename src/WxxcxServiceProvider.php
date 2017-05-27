@@ -25,7 +25,7 @@ class WxxcxServiceProvider extends ServiceProvider
 
         $this->publishes([
             $config_file => config_path('wxxcx.php')
-        ], 'config');
+        ], 'wxxcx');
     }
 
     /**
