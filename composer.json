@@ -1,0 +1,16 @@
+{
+    "name": "iwanli/wxxcx",
+    "description": "A WeChat applet (xiaochengxu) plugins for Laravel 5.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "晚黎",
+            "email": "ibanya@126.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "~5"
+    }
+}
