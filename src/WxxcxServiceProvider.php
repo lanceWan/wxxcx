@@ -37,8 +37,7 @@ class WxxcxServiceProvider extends ServiceProvider
     {
         $this->app->bind('wxxcx', function ()
         {
-            $config = config('wxxcx');
-            return new Wxxcx($config);
+            return new Wxxcx();
         });
 
         $this->app->alias('wxxcx', Wxxcx::class);
