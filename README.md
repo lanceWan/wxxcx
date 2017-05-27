@@ -1,9 +1,11 @@
 # Laravel 5 微信小程序扩展
 
+> 小程序官方的加解密 SDK 已经非常清楚了，只不过改成 Laravel 风格而已，仅仅相当于搬砖工。至于重复造轮子，我发现其他人的扩展解密用户信息的时候代码出错了，并且需要安装一个 Laravel 的 Curl 扩展也没说。只好自己去根据他们的源码自己写一个0.0 ，不依赖其他扩展，直接安装使用即可。
+
 ## 小程序API接口
 
 * 用户登录：[wx.login](https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html)
-* 获取用户信息:[wx.getUserInfo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/open.html#wxgetuserinfoobject)
+* 获取用户信息：[wx.getUserInfo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/open.html#wxgetuserinfoobject)
 
 ## 安装
 
