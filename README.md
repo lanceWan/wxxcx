@@ -1,12 +1,9 @@
 # Laravel 5 微信小程序扩展
 
-## 备注
+## 小程序API接口
 
-Api | 说明 | 对应方法
----|---|---
-[wx.login](https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html) | 登录 | $obj->getLoginInfo
-[wx.getUserInfo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/open.html#wxgetuserinfoobject) | 获取用户信息 | $obj->getUserInfo($encryptedData,$iv);
-reference：https://mp.weixin.qq.com/debug/wxadoc/dev/api/
+* 用户登录：[wx.login](https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html)
+* 获取用户信息:[wx.getUserInfo](https://mp.weixin.qq.com/debug/wxadoc/dev/api/open.html#wxgetuserinfoobject)
 
 ## 安装
 
@@ -40,70 +37,87 @@ php artisan vendor:publish --tag=wxxcx
 
 ```php
 ...
+
 use Iwanli\Wxxcx\Wxxcx;
-...
-class YourController extends Controller
+
+class WxxcxController extends Controller
 {
-    ...
+    protected $wxxcx;
 
-    private function getWxxcx()
+    function __construct(Wxxcx $wxxcx)
     {
-        return new Wxxcx(config('wxxcx'));
+        $this->wxxcx = $wxxcx;
     }
-    
-    /* 根据 code , encryptedData , iv 获取用户解密后的信息 */
-    public function getWxUserInfo(Request $rq)
-    {
-        //使用 ajax 请求将获取的加密数据和参数发送到这里
 
+    /**
+     * 小程序登录获取用户信息
+     * @author 晚黎
+     * @date   2017-05-27T14:37:08+0800
+     * @return [type]                   [description]
+     */
+    public function getWxUserInfo()
+    {
         //code 在小程序端使用 wx.login 获取
-        $code = $rq->input('code');
+        $code = request('code', '');
         //encryptedData 和 iv 在小程序端使用 wx.getUserInfo 获取
-        $encryptedData = $rq->input('encryptedData');
-        $iv = $rq->input('iv');
-        
-        //小程序类实例化
-        $wxxcx = new new Wxxcx();
-        //根据 code 获取用户 session_key 等信息, 返回用户openid 和 session_key
-        $wxxcx->getLoginInfo($code);
-        //获取解密后的用户信息
-        return $wxxcx->getUserInfo($encryptedData, $iv);
-    }
+        $encryptedData = request('encryptedData', '');
+        $iv = request('iv', '');
 
-    ...
+        //根据 code 获取用户 session_key 等信息, 返回用户openid 和 session_key
+        $userInfo = $this->wxxcx->getLoginInfo($code);
+
+        //获取解密后的用户信息
+        return $this->wxxcx->getUserInfo($encryptedData, $iv);
+    }
 }
 ```
 
-reponse:
+用户信息返回格式:
 
 ```
 {
     "openId": "xxxx",
-    "nickName": "Vicleos",
+    "nickName": "晚黎",
     "gender": 1,
     "language": "zh_CN",
-    "city": "Beijing",
-    "province": "Beijing",
+    "city": "",
+    "province": "Shanghai",
     "country": "CN",
-    "avatarUrl": "http://wx.qlogo.cn/mmopen/vi_32/xxxx",
-    "unionId": "xxxxx",
+    "avatarUrl": "http://wx.qlogo.cn/mmopen/xxxx",
     "watermark": {
-        "timestamp": 1465251521,
+        "timestamp": 1495867603,
         "appid": "your appid"
     }
 }
 ```
 
-## 小程序端如何获取 `wx.login()` 中的 `code`
+## 小程序端获取 code、iv、encryptedData 向服务端发送请求示例代码：
 
 ```javascript
-...
-    wx.login({
-        success: function (res) {
-            console.log(res.code);
-            //结果 "071A8Miq00onPq1BpUgq0NBPiq0xxxx"
-        }
-    })
-...
+//调用登录接口
+wx.login({
+    success: function (response) {
+        var code = response.code
+        wx.getUserInfo({
+            success: function (resp) {
+                wx.request({
+                    url: 'your domain',
+                    data: {
+                        code: code,
+                        iv: resp.iv,
+                        encryptedData: resp.encryptedData
+                    },
+                    success: function (res) {
+                        console.log(res.data)
+                    }
+                })
+            }
+        })
+    },
+    fail:function(){
+        ...
+    }
+})
 ```
 
+> 如有bug，请在 [Issues](https://github.com/lanceWan/wxxcx/issues) 中反馈，非常感谢！

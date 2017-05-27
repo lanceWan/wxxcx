@@ -1,5 +1,5 @@
 <?php
-namespace Vicleos\Wxxcx;
+namespace Iwanli\Wxxcx;
 
 
 class WXBizDataCrypt
