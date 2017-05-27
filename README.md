@@ -18,7 +18,7 @@ composer require iwanli/wxxcx
 或者添加如下信息到你的 `composer.json` 文件中 :
 
 ```json
-"vicleos/wxxcx": "1.*"
+"iwanli/wxxcx": "^1.0",
 ```
 
 然后注册服务提供者到 Laravel中 具体位置：`/config/app.php` 中的 `providers` 数组:
