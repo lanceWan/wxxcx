@@ -12,13 +12,13 @@
 
 执行以下命令安装最新稳定版本:
 
-** PHP < 7.1 **
+**PHP < 7.1**
 
 ```bash
 composer require iwanli/wxxcx=1.*
 ```
 
-** PHP > 7.1 **
+**PHP > 7.1**
 
 ```bash
 composer require iwanli/wxxcx=2.*
@@ -26,13 +26,13 @@ composer require iwanli/wxxcx=2.*
 
 或者添加如下信息到你的 `composer.json` 文件中 :
 
-** PHP < 7.1 **
+**PHP < 7.1**
 
 ```json
 "iwanli/wxxcx": "^1.0"
 ```
 
-** PHP > 7.1 **
+**PHP > 7.1**
 
 ```bash
 "iwanli/wxxcx": "^2.0"
