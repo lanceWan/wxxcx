@@ -40,8 +40,11 @@ class Wxxcx
      * @return string
      * @throws \Exception
      */
-    public function getUserInfo($encryptedData, $iv){
-        $pc = new WXBizDataCrypt($this->appId, $this->sessionKey);
+    public function getUserInfo($encryptedData, $iv, $sessionKey = null){
+        if (empty($sessionKey)) {
+          $sessionKey = $this->sessionKey;
+        }
+        $pc = new WXBizDataCrypt($this->appId, $sessionKey);
         $decodeData = "";
         $errCode = $pc->decryptData($encryptedData, $iv, $decodeData);
         if ($errCode !=0 ) {
