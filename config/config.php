@@ -1,14 +1,31 @@
 <?php
 
 return [
-	/**
-	 * 小程序APPID
-	 */
-    'appid' => 'your AppID',
-    /**
-     * 小程序Secret
-     */
-    'secret' => 'your AppSecret',
+
+    /*
+    |--------------------------------------------------------------------------
+    | AppID and AppSecret configuration
+    |--------------------------------------------------------------------------
+    |
+    | Multiple AppId and AppSecret
+    | Usage:
+    | - default: new Iwanli\Wxxcx\Wxxcx();
+    | - other: new Iwanli\Wxxcx\Wxxcx(config('wxxcx.other'));
+    */
+
+    'default' => [
+        'appid' => 'your AppID',
+        'secret' => 'your AppSecret',
+    ],
+
+    'other' => [
+        'appid' => 'your other AppSecret',
+        'secret' => 'your other AppSecret',
+    ],
+
+    // and more ...
+
+	
     /**
      * 小程序登录凭证 code 获取 session_key 和 openid 地址，不需要改动
      */

@@ -18,10 +18,10 @@ class Wxxcx
      * Wxxcx constructor.
      * @param $code 登录凭证（code）
      */
-    function __construct()
+    function __construct($config = [])
     {
-        $this->appId = config('wxxcx.appid', '');
-        $this->secret = config('wxxcx.secret', '');
+        $this->appId = $config ? $config['appid'] : config('wxxcx.default.appid', '');
+        $this->secret = $config ? $config['secret'] : config('wxxcx.default.secret', '');
         $this->code2session_url = config('wxxcx.code2session_url', '');
     }
 
